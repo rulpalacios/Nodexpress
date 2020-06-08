@@ -6,7 +6,7 @@ const db = {
 }
 
 async function list(table){
-    return db[table]
+    return db[table] || [];
 }
 
 async function get(table, id){
@@ -15,17 +15,30 @@ async function get(table, id){
 }
 
 async function upsert(table, data){
-    let collection = await list(table)
-    db[collection].push(data)
+    if(!db[table]){
+        db[table] = []
+    }
+    db[table].push(data)
+    console.log(db)
+
+    return data
 }
 
 async function remove(table, id){
     return true
 }
 
+async function query(table, content){
+    let collection = await list(table)
+    let keys = Object.keys(content)
+    let key = keys[0]
+
+    return collection.filter(item => item[key] === content[key])[0] || null;
+}
 module.exports = {
     list,
     get,
     upsert,
-    remove
+    remove,
+    query
 }
