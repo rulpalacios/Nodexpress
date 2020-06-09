@@ -1,11 +1,11 @@
-const USER = 'user'
+const USER = 'users'
 const { nanoid } = require('nanoid')
 const auth = require('../../components/auth')
 
 module.exports = function(injectedStore){
     let store = injectedStore
     if(!store){
-        store = require('../../../store/dummy')
+        store = require('../../../store/postgres')
     }
 
     function list(){

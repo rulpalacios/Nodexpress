@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 module.exports = function(injectedStore){
     let store = injectedStore
     if(!store){
-        store = require('../../../store/dummy')
+        store = require('../../../store/postgres')
     }
 
     async function login(username, password){
@@ -32,7 +32,7 @@ module.exports = function(injectedStore){
         if(data.password){
             authData.password = await bcrypt.hash(data.password, 5)
         }
-
+        
         return store.upsert(AUTH, authData)
     }
 

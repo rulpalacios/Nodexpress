@@ -1,4 +1,4 @@
-const store = require('../../../store/dummy.js')
+const store = require('../../../store/postgres.js')
 const controller = require('./controller')
 
 module.exports = controller(store)
